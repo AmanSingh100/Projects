@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-# import csv
-# import pandas as pd
+import csv
+import pandas as pd
 import os
 
 
@@ -64,8 +64,8 @@ for line_tag in td1:
                                 break
                         table_data.append(all_data.copy())
 
-                    # df = pd.DataFrame(table_data)
-                    # df.to_csv(state_name+'/'+str(tag1)+'_market.csv',index=False, encoding='UTF-8')
+                    df = pd.DataFrame(table_data)
+                    df.to_csv(state_name+'/'+str(tag1)+'_market.csv',index=False, encoding='UTF-8')
 
 
 
