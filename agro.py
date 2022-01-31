@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
 import pandas as pd
 import os
 
@@ -27,10 +26,8 @@ for line_tag in td1:
         if os.path.isdir(state_name)==False:
             os.mkdir(state_name)
                 
-#############################################################################################################################
-
-        #website from which we are scraping href tag data
-        links = soup.find_all('table', attrs={'class':'shop_table'})
+        
+        links = soup.find_all('table', attrs={'class':'shop_table'}) #website from which we are scraping href tag data
         for tag in links:
             tdtags = tag.find_all('a')
             for tags in tdtags: 
