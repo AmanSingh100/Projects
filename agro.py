@@ -16,15 +16,19 @@ for line_tag in td1:
     td1_tags = line_tag.find_all('a')   #finds all 'a' tags in the table
     for content_tags in td1_tags: 
 
-        states_websites = "https://market.todaypricerates.com"+str(content_tags['href'])    #print websites state-wise | content_tags give the give the 'href' content
+        states_websites = "https://market.todaypricerates.com"+str(content_tags['href'])    #print websites state-wise | content_tags give 'href' content
         html_contents = requests.get(states_websites).text   #gets all html content of the website
         soup = BeautifulSoup(html_contents,'html.parser')
         state_name =  content_tags.get_text()    #get the state name | use when creating state-wise folders
-        print(content_tags)
         print(state_name)
-    
-        if os.path.isdir(state_name)==False:
-            os.mkdir(state_name)
+       
+        output_folder= ""      #give location of your output folder
+        prices = os.path.join(output_folder,state_name)
+        print(output_folder)
+        if os.path.isdir(prices)==False:
+            os.mkdir(prices)
+        else:
+            pass
                 
         
         links = soup.find_all('table', attrs={'class':'shop_table'}) #website from which we are scraping href tag data
@@ -62,9 +66,4 @@ for line_tag in td1:
                         table_data.append(all_data.copy())
 
                     df = pd.DataFrame(table_data)
-                    df.to_csv(state_name+'/'+str(tag1)+'_market.csv',index=False, encoding='UTF-8')
-
-
-
-
-       
+                    df.to_csv(prices+'/'+str(tag1)+'_market.csv',index=False, encoding='UTF-8')
